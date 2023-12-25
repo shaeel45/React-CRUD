@@ -1,0 +1,12 @@
+.name{
+    letter-spacing: 2px;
+    color: cadetblue;
+}
+
+.head{
+    color: cornflowerblue;
+    letter-spacing: 3px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular',  'Lucida Sans Unicode', ;
+    margin-top: 3rem;
+    font-size: 3rem;
+}
