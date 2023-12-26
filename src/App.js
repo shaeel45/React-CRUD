@@ -1,11 +1,16 @@
+// App.jsx
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Add from './Add/Add';
-import './App.css';
+import Edit from './Edit/Edit';
+
 
 function App() {
   return (
-   <>
-   <Add/>
-   </>
+    <Routes>
+      <Route path="Add" element={<Add />} />
+      <Route path="Edit" element={<Edit title="Edit Students Data"/>} />
+    </Routes>
   );
 }
 

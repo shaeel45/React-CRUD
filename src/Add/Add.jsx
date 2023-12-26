@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Add.css';
 import Images from '../Images/person-having-a-meeting-from-home.png';
+import {useNavigate } from 'react-router-dom';
 
 const Add = () => {
     const [addData, setAddData] = useState({
@@ -11,6 +12,11 @@ const Add = () => {
     });
 
     const [allData, setAllData] = useState([]);
+    const navigate = useNavigate();
+
+    const handleEdit =()=>{
+        navigate('/Edit')
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -26,6 +32,7 @@ const Add = () => {
     const handleChange = (e) => {
         setAddData({ ...addData, [e.target.name]: e.target.value });
     };
+
 
     return (
         <>
@@ -47,11 +54,12 @@ const Add = () => {
                                     value={addData.firstName}
                                     onChange={handleChange}
                                     className='form-control w-75'
+                                   
                                 />
                             </div>
                             <div className='mt-4'>
                                 <label htmlFor='' className='fw-bold name'>
-                                    {' '}
+                                    
                                     Last Name
                                 </label>
                                 <input
@@ -60,6 +68,7 @@ const Add = () => {
                                     value={addData.lastName}
                                     onChange={handleChange}
                                     className='form-control w-75'
+                                   
                                 />
                             </div>
                             <div className='mt-4'>
@@ -110,6 +119,8 @@ const Add = () => {
                                     <th scope="col">Last Name</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Teacher</th>
+                                <th scope="col">Status</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -121,6 +132,11 @@ const Add = () => {
                                     <td>{data.lastName}</td>
                                     <td>{data.Email}</td>
                                     <td>{data.Teacher}</td>
+                                    <td>
+                                        <button onClick={handleEdit} type="button" className='me-2 ps-2 pe-2 border border-warning-subtle'><i className="bi bi-pencil-fill"></i></button>
+                                        <button type="button" className=' ps-2 pe-2 border border-warning-subtle'><i className="bi bi-trash-fill"></i></button>
+                                    </td>
+
                                 </tr>
                             ))}
                             </tbody>
