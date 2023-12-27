@@ -3,6 +3,7 @@ import './Add.css';
 import Images from '../Images/person-having-a-meeting-from-home.png';
 import {useNavigate } from 'react-router-dom';
 
+
 const Add = () => {
     const [addData, setAddData] = useState({
         firstName: '',
@@ -14,9 +15,10 @@ const Add = () => {
     const [allData, setAllData] = useState([]);
     const navigate = useNavigate();
 
-    const handleEdit =()=>{
-        navigate('/Edit')
-    }
+    const handleEdit =(index)=>{
+        console.log('edit item index',index);
+        const editData = allData[index]
+        navigate(`/Edit/${index}`, { state: { editData } });    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -133,7 +135,7 @@ const Add = () => {
                                     <td>{data.Email}</td>
                                     <td>{data.Teacher}</td>
                                     <td>
-                                        <button onClick={handleEdit} type="button" className='me-2 ps-2 pe-2 border border-warning-subtle'><i className="bi bi-pencil-fill"></i></button>
+                                        <button onClick={()=>handleEdit(index)} type="button" className='me-2 ps-2 pe-2 border border-warning-subtle'><i className="bi bi-pencil-fill"></i></button>
                                         <button type="button" className=' ps-2 pe-2 border border-warning-subtle'><i className="bi bi-trash-fill"></i></button>
                                     </td>
 

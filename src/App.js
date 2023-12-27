@@ -8,8 +8,8 @@ import Edit from './Edit/Edit';
 function App() {
   return (
     <Routes>
-      <Route path="Add" element={<Add />} />
-      <Route path="Edit" element={<Edit title="Edit Students Data"/>} />
+      <Route path="" element={<Add />} />
+      <Route path="/Edit/:id" element={<Edit title="Edit Students Data"/>} />
     </Routes>
   );
 }
