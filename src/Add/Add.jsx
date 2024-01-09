@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './Add.css';
 import Images from '../Images/person-having-a-meeting-from-home.png';
-import {useNavigate } from 'react-router-dom';
 
 
 const Add = () => {
+
     const [addData, setAddData] = useState({
         firstName: '',
         lastName: '',
@@ -13,33 +13,65 @@ const Add = () => {
     });
 
     const [allData, setAllData] = useState([]);
-    const navigate = useNavigate();
+
+    const[editClick,setEditClick] = useState(false);
+
+    const[editIndex,SetEditindex]=useState("");
 
     const handleEdit =(index)=>{
-        console.log('edit item index',index);
-        const editData = allData[index]
-        navigate(`/Edit/${index}`, { state: { editData } });    }
+    const inputData = allData[index];
+    console.log('temp',inputData) 
+    setAddData({
+        firstName:inputData.firstName,
+        lastName:inputData.lastName,
+        Email:inputData.Email,
+        Teacher:inputData.Teacher
+    })
+    setEditClick(true);
+    SetEditindex(index)
+
+        }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setAllData([...allData, addData]); 
-        setAddData({  
-            firstName: '',
-            lastName: '',
-            Email: '',
-            Teacher: '',
-        });
+if(editClick){
+const temp = allData;
+Object.assign(temp[editIndex],addData);
+setAllData([...temp])
+}else{
+
+    setAllData([...allData, addData]); 
+    setAddData({  
+        firstName: '',
+        lastName: '',
+        Email: '',
+        Teacher: '',
+    });
+}
+
     };
 
     const handleChange = (e) => {
         setAddData({ ...addData, [e.target.name]: e.target.value });
     };
+    
+
+    const handleDelete = (index) => {
+        console.log('Deleting item at index:', index);
+        const filteredData = allData.filter((_, i) => i !== index);
+        console.log('Filtered data:', filteredData);
+        setAllData(filteredData);
+    };
+    
+
+    
+    
 
 
     return (
         <>
             <div className='text-center'>
-                <h2 className='head'>Add Student</h2>
+                <h2 className='head'>Student Data</h2>
             </div>
             <div className='container'>
                 <form action='post' onSubmit={handleSubmit}>
@@ -48,59 +80,64 @@ const Add = () => {
                             <div className='mt-4'>
                                 <label htmlFor='' className='fw-bold name'>
                                     {' '}
-                                    First Name
+                                    First Name :
                                 </label>
+                                <br />
                                 <input
                                     type='text'
                                     name='firstName'
                                     value={addData.firstName}
                                     onChange={handleChange}
-                                    className='form-control w-75'
-                                   
+                                    className='form w-75'
+                                    
+                                    
                                 />
                             </div>
                             <div className='mt-4'>
                                 <label htmlFor='' className='fw-bold name'>
                                     
-                                    Last Name
+                                    Last Name :
                                 </label>
+                                <br />
                                 <input
                                     type='text'
                                     name='lastName'
                                     value={addData.lastName}
                                     onChange={handleChange}
-                                    className='form-control w-75'
+                                    className='form w-75'
                                    
                                 />
                             </div>
                             <div className='mt-4'>
                                 <label htmlFor='' className='fw-bold name'>
                                     {' '}
-                                    Email
+                                    Email :
                                 </label>
+                                <br />
                                 <input
                                     type='text'
                                     name='Email'
                                     value={addData.Email}
                                     onChange={handleChange}
-                                    className='form-control w-75'
+                                    className='form w-75'
                                 />
                             </div>
                             <div className='mt-4'>
                                 <label htmlFor='' className='fw-bold name'>
-                                    Teacher
+                                    Teacher :
                                 </label>
+                                <br />
                                 <input
                                     type='text'
                                     name='Teacher'
                                     value={addData.Teacher}
                                     onChange={handleChange}
-                                    className='form-control w-75'
+                                    className='form w-75'
                                 />
                             </div>
                             <div className='mt-4 '>
                                 <button type='submit' className='btn btn-outline-success'>
-                                    Add
+                                    {editClick?"Update":"Add"}
                                 </button>
                             </div>
                         </div>
@@ -126,7 +163,7 @@ const Add = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                            {allData.map((data,index)=>(
+                            {allData.map((data,index,i)=>(
 
                                 <tr key={index}>
                                     <th scope="row">{index + 1}</th>
@@ -135,8 +172,8 @@ const Add = () => {
                                     <td>{data.Email}</td>
                                     <td>{data.Teacher}</td>
                                     <td>
-                                        <button onClick={()=>handleEdit(index)} type="button" className='me-2 ps-2 pe-2 border border-warning-subtle'><i className="bi bi-pencil-fill"></i></button>
-                                        <button type="button" className=' ps-2 pe-2 border border-warning-subtle'><i className="bi bi-trash-fill"></i></button>
+                                        <button onClick={()=>handleEdit(index)} type="button" className='me-2 ps-2 pe-2 edit border border-warning-subtle'><i className="bi bi-pencil-fill"></i></button>
+                                        <button type="button" onClick={()=>handleDelete(index)}  className=' ps-2 pe-2 dlt border border-warning-subtle'><i className="bi bi-trash-fill"></i></button>
                                     </td>
 
                                 </tr>

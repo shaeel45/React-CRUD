@@ -10,3 +10,27 @@
     margin-top: 3rem;
     font-size: 3rem;
 }
+
+.form{
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid grey  ;
+    
+}
+.form:focus{
+    outline: none;
+}
+
+.border{
+    border-radius: 4px;
+}
+
+.edit:focus{
+    background-color: rgb(44, 160, 44);
+    border: none;
+}
+
+.dlt:focus{
+    background-color: rgb(160, 41, 41);
+    border: none;
+}
